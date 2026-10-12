@@ -155,7 +155,7 @@ private extension SingleFaviconDownloader {
 		}
 
 		if let data = downloadResponse.data, !data.isEmpty, let response = downloadResponse.response, response.statusIsOK {
-			let scaledData = RSImage.scaledImageData(data, maxPixelSize: RSImage.maxIconPixelSize) ?? data
+			let scaledData = await scaledIconData(data, on: queue)
 			let image = await RSImage.image(data: scaledData)
 			guard let image else {
 				let responseStatusCode = (response as? HTTPURLResponse)?.statusCode

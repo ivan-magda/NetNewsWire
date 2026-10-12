@@ -171,7 +171,7 @@ private extension ImageDownloader {
 		}
 
 		if let data = downloadResponse.data, !data.isEmpty, let response = downloadResponse.response, response.statusIsOK {
-			let scaledData = RSImage.scaledImageData(data, maxPixelSize: RSImage.maxIconPixelSize) ?? data
+			let scaledData = await scaledIconData(data, on: queue)
 			saveToDisk(url, scaledData)
 			return (scaledData, downloadResponse)
 		}
